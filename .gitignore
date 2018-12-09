@@ -46,3 +46,6 @@
 # Server Files
 
 /server/node_modules
+
+#test files
+index.html
