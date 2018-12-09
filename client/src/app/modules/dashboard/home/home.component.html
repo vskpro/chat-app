@@ -1,0 +1,28 @@
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">{{userName}}</a>
+    </div>
+    <ul class="nav navbar-nav navbar-right">
+      <li><button class="btn btn-danger" (click)="logout()"><span class="glyphicon glyphicon-log-out"></span> Logout</button></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="chat-box">
+  <div class="messages-wrapper">
+    <ul>
+      <li *ngFor="let item of messages">
+        <strong>{{item.user}}</strong>: {{item.message}}
+      </li>
+    </ul>
+  </div>
+  <div class="send-wrapper">
+    <form class="form-inline" (submit)="send()">
+      <div class="form-group">
+        <input type="text" name="message" [(ngModel)]="message" class="form-control" id="message">
+      </div>
+      <button type="submit" class="btn btn-default">Send</button>
+    </form>
+  </div>
+</div>

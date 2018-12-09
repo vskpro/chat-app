@@ -1,0 +1,13 @@
+.form-wrapper {
+    width: 270px;
+    max-width: 100%;
+    background: white;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+
+.message {
+    margin: 10px 0px;
+}

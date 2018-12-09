@@ -1,0 +1,31 @@
+<div class="wrapper">
+  <div class="form-wrapper">
+    <form #loginForm="ngForm" (ngSubmit)="login()">
+      <div class="form-group">
+        <label for="email">Email address:</label>
+        <input type="email" name="email" #email="ngModel" [(ngModel)]="user.email" class="form-control" id="email">
+        <div *ngIf="email.invalid && (email.dirty && email.touched)" class="alert alert-danger">
+          <div *ngIf="email.errors.required">
+            This field is required
+          </div>
+          <div *ngIf="email.errors.pattern">
+            Enter a valid email
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="pwd">Password:</label>
+        <input type="password" #password="ngModel" [(ngModel)]="user.password" name="password" minlength="6" class="form-control"
+          id="pwd" required>
+        <div *ngIf="password.invalid && (password.dirty && password.touched)" class="alert alert-danger">
+          <div *ngIf="password.errors.required">This field is required</div>
+          <div *ngIf="password.errors.minlength">Password needs 6 characters or more</div>
+        </div>
+      </div>
+      <button [disabled]="!loginForm.form.valid || isSubmitted" type="submit" class="btn btn-success">Login</button>
+    </form>
+    <div class="message">
+      Haven't registered? <a routerLink="/register">Register</a>
+    </div>
+  </div>
+</div>
