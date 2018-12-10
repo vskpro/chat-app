@@ -17,27 +17,43 @@ export class HomeComponent implements OnInit {
   constructor(private afAuth: AngularFireAuth, private auth: AuthService) { }
 
   ngOnInit() {
-    this.afAuth.authState.subscribe(user=>{
+    this.afAuth.authState.subscribe(user => {
       console.log(user);
-      if(user){
+      if (user) {
         this.userName = user.displayName;
       }
     });
+
     this.socket = io('http://localhost:3000');
 
-    this.socket.on('NewMessage', (data)=>{
+    this.socket.on('connect', () => {
+      this.socket.emit('NewUser', { user: this.userName ? this.userName : 'Someone' });
+    });
+
+    this.socket.on('UserJoined', data => {
+      this.messages.push(data);
+    });
+
+    this.socket.on('NewMessage', (data) => {
       console.log(data);
       this.messages.push(data);
       console.log(this.messages);
     });
   }
-  
+
   send() {
-    this.socket.emit('SendMessage', {
-      user: this.userName,
-      message: this.message
-    });
-    this.message = '';
+
+    console.log(this.message);
+
+    if (this.message) {
+      this.socket.emit('SendMessage', {
+        user: this.userName,
+        message: this.message
+      });
+
+      this.message = null;
+    }
+
   }
 
   logout() {
